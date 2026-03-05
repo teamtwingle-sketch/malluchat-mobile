@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">MalluChat</string>
+    <string name="title_activity_main">MalluChat</string>
+    <string name="package_name">online.malluchat.app</string>
+    <string name="custom_url_scheme">online.malluchat.app</string>
+</resources>
