@@ -314,13 +314,33 @@ export default function App() {
     }, 2000);
   };
 
+  const askAndroidPermissions = () => {
+    if ((window as any).MalluNative) {
+      (window as any).MalluNative.askPermissions();
+    }
+  };
+
+  const tryGetUserMedia = async (constraints: MediaStreamConstraints, retries = 3): Promise<MediaStream> => {
+    try {
+      return await navigator.mediaDevices.getUserMedia(constraints);
+    } catch (err: any) {
+      if (retries > 0 && err.name === 'NotAllowedError') {
+        // Wait 2 seconds for user to click 'Allow' on the native Android permission popup
+        await new Promise(r => setTimeout(r, 2000));
+        return tryGetUserMedia(constraints, retries - 1);
+      }
+      throw err;
+    }
+  };
+
   const startRecording = async () => {
     try {
       if (!username) {
         setShowLoginModal(true);
         return;
       }
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      askAndroidPermissions();
+      const stream = await tryGetUserMedia({ audio: true });
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
@@ -593,7 +613,8 @@ export default function App() {
 
   const initiateCall = async (isVideo: boolean = false) => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: isVideo });
+      askAndroidPermissions();
+      const stream = await tryGetUserMedia({ audio: true, video: isVideo });
       // we use the actual connected peer id
       const remoteId = peerEngine.connection?.peer;
       if (!remoteId) return alert('No active peer connected');
