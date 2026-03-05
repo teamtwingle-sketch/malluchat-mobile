@@ -18,12 +18,6 @@ jobs:
       with:
         node-version: '20'
 
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Build Web App & Sync Capacitor
-      run: npm run build:mobile
-
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
@@ -32,6 +26,12 @@ jobs:
 
     - name: Set up Android SDK
       uses: android-actions/setup-android@v3
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build Web App & Sync Capacitor
+      run: npm run build:mobile
 
     - name: Build APK
       run: |
