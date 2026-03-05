@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && cp dist/index.html dist/404.html",
+    "build": "tsc -b && vite build && cp dist/index.html dist/404.html && cp public/malluchat.apk dist/malluchat.apk",
     "lint": "eslint .",
     "preview": "vite preview",
     "build:mobile": "tsc -b && vite build && npx cap sync"
