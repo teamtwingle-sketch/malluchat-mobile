@@ -35,6 +35,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
   final GlobalKey webViewKey = GlobalKey();
   InAppWebViewController? webViewController;
   InAppWebViewSettings settings = InAppWebViewSettings(
+      userAgent: "MalluChatApp",
       mediaPlaybackRequiresUserGesture: false,
       allowsInlineMediaPlayback: true,
       iframeAllowFullscreen: true,

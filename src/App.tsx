@@ -64,6 +64,9 @@ export default function App() {
   const [adText, setAdText] = useState('');
   const [adSponsor, setAdSponsor] = useState('Sponsor');
 
+  // Detect if running inside Native App
+  const isApp = typeof navigator !== 'undefined' && navigator.userAgent.includes('MalluChatApp');
+
   // Incoming personal chat request
   const [incomingChatRequest, setIncomingChatRequest] = useState<{ conn: any, metadata: any } | null>(null);
   const [remoteUsername, setRemoteUsername] = useState<string>('User');
@@ -677,10 +680,12 @@ export default function App() {
             <Lock size={20} />
             Private Space
           </div>
-          <a className="nav-item-desktop" href="/malluchat.apk" download="malluchat.apk" style={{ color: 'var(--primary)', fontWeight: 'bold', textDecoration: 'none', borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '10px', paddingTop: '15px' }}>
-            <Download size={20} />
-            Get Android App
-          </a>
+          {!isApp && (
+            <a className="nav-item-desktop" href="/malluchat.apk" download="malluchat.apk" style={{ color: 'var(--primary)', fontWeight: 'bold', textDecoration: 'none', borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '10px', paddingTop: '15px' }}>
+              <Download size={20} />
+              Get Android App
+            </a>
+          )}
         </nav>
 
         <div className="sidebar-footer">
@@ -1210,10 +1215,12 @@ export default function App() {
               <Users size={24} />
               World
             </div>
-            <a className="nav-item" href="/malluchat.apk" download="malluchat.apk" style={{ color: 'var(--primary)', textDecoration: 'none' }}>
-              <Download size={24} />
-              App
-            </a>
+            {!isApp && (
+              <a className="nav-item" href="/malluchat.apk" download="malluchat.apk" style={{ color: 'var(--primary)', textDecoration: 'none' }}>
+                <Download size={24} />
+                App
+              </a>
+            )}
             <div className={`nav-item ${viewMode === 'private' ? 'active' : ''}`} onClick={() => {
               if (!username && viewMode === 'public') {
                 setShowLoginModal(true);

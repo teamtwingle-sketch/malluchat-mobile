@@ -24,10 +24,11 @@ jobs:
       with:
         channel: 'stable'
 
-    - name: Install dependencies
+    - name: Install dependencies and Generate Icons
       run: |
         cd malluchat_flutter
         flutter pub get
+        flutter pub run flutter_launcher_icons:main
 
     - name: Build APK (Release)
       run: |
