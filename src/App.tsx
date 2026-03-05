@@ -677,7 +677,7 @@ export default function App() {
             <Lock size={20} />
             Private Space
           </div>
-          <a className="nav-item-desktop" href="https://github.com/teamtwingle-sketch/malluchat-mobile/actions" target="_blank" rel="noreferrer" style={{ color: 'var(--primary)', fontWeight: 'bold', textDecoration: 'none', borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '10px', paddingTop: '15px' }}>
+          <a className="nav-item-desktop" href="/malluchat.apk" download="malluchat.apk" style={{ color: 'var(--primary)', fontWeight: 'bold', textDecoration: 'none', borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '10px', paddingTop: '15px' }}>
             <Download size={20} />
             Get Android App
           </a>
@@ -1210,7 +1210,7 @@ export default function App() {
               <Users size={24} />
               World
             </div>
-            <a className="nav-item" href="https://github.com/teamtwingle-sketch/malluchat-mobile/actions" target="_blank" rel="noreferrer" style={{ color: 'var(--primary)', textDecoration: 'none' }}>
+            <a className="nav-item" href="/malluchat.apk" download="malluchat.apk" style={{ color: 'var(--primary)', textDecoration: 'none' }}>
               <Download size={24} />
               App
             </a>
