@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { PeerEngine } from './utils/peer-engine';
 import { isSpam, RateLimiter } from './utils/spam-filter';
-import { Send, Phone, Link as LinkIcon, Copy, Mic, CheckCheck, Volume2, MicOff, PhoneOff, X, Reply, Trash2, Video, VideoOff, Users, Lock, Plus } from 'lucide-react';
+import { Send, Phone, Link as LinkIcon, Copy, Mic, CheckCheck, Volume2, MicOff, PhoneOff, X, Reply, Trash2, Video, VideoOff, Users, Lock, Plus, Download } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 import { motion } from 'framer-motion';
 import './index.css';
@@ -677,6 +677,10 @@ export default function App() {
             <Lock size={20} />
             Private Space
           </div>
+          <a className="nav-item-desktop" href="https://github.com/teamtwingle-sketch/malluchat-mobile/actions" target="_blank" rel="noreferrer" style={{ color: 'var(--primary)', fontWeight: 'bold', textDecoration: 'none', borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '10px', paddingTop: '15px' }}>
+            <Download size={20} />
+            Get Android App
+          </a>
         </nav>
 
         <div className="sidebar-footer">
@@ -1206,6 +1210,10 @@ export default function App() {
               <Users size={24} />
               World
             </div>
+            <a className="nav-item" href="https://github.com/teamtwingle-sketch/malluchat-mobile/actions" target="_blank" rel="noreferrer" style={{ color: 'var(--primary)', textDecoration: 'none' }}>
+              <Download size={24} />
+              App
+            </a>
             <div className={`nav-item ${viewMode === 'private' ? 'active' : ''}`} onClick={() => {
               if (!username && viewMode === 'public') {
                 setShowLoginModal(true);
