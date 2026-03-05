@@ -13,43 +13,40 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
-
-    - name: Setup Java
+    - name: Set up Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '21'
 
-    - name: Set up Android SDK
-      uses: android-actions/setup-android@v3
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
 
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Build Web App & Sync Capacitor Android
+    - name: Install dependencies
       run: |
-        npm run build
-        npx cap sync android
+        cd malluchat_flutter
+        flutter pub get
 
-    - name: Build APK and AAB
+    - name: Build APK (Release)
       run: |
-        cd android
-        chmod +x ./gradlew
-        ./gradlew assembleDebug
-        ./gradlew bundleRelease
+        cd malluchat_flutter
+        flutter build apk --release
+
+    - name: Build AAB (Release)
+      run: |
+        cd malluchat_flutter
+        flutter build appbundle --release
 
     - name: Upload APK (For direct testing)
       uses: actions/upload-artifact@v4
       with:
-        name: malluchat-app-debug.apk
-        path: android/app/build/outputs/apk/debug/app-debug.apk
+        name: malluchat-app-release.apk
+        path: malluchat_flutter/build/app/outputs/flutter-apk/app-release.apk
 
     - name: Upload AAB (For Google Play Store)
       uses: actions/upload-artifact@v4
       with:
         name: malluchat-app-release.aab
-        path: android/app/build/outputs/bundle/release/app-release.aab
+        path: malluchat_flutter/build/app/outputs/bundle/release/app-release.aab

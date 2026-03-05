@@ -4,13 +4,6 @@ import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Request Microphone and Camera Permissions for WebRTC to function natively
-  await [
-    Permission.camera,
-    Permission.microphone,
-  ].request();
-
   runApp(const MalluChatApp());
 }
 
@@ -63,7 +56,13 @@ class _WebViewScreenState extends State<WebViewScreen> {
             webViewController = controller;
           },
           onPermissionRequest: (controller, request) async {
-            // Automatically grant permissions from the Android/iOS WebView side
+            // Native Android popup to gracefully ask right when the button is clicked!
+            await [
+              Permission.camera,
+              Permission.microphone,
+            ].request();
+            
+            // Automatically grant permissions to the WebView once Android grants physical access
             return PermissionResponse(
                 resources: request.resources,
                 action: PermissionResponseAction.GRANT);
