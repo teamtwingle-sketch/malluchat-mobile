@@ -30,8 +30,10 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Build Web App & Sync Capacitor
-      run: npm run build:mobile
+    - name: Build Web App & Sync Capacitor Android
+      run: |
+        npm run build
+        npx cap sync android
 
     - name: Build APK
       run: |
