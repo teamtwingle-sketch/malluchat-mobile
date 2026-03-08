@@ -1,4 +1,5 @@
 import React from 'react';
+import { MalluLogo } from './MalluLogo';
 
 const containerStyle: React.CSSProperties = {
     maxWidth: '800px',
@@ -10,10 +11,27 @@ const containerStyle: React.CSSProperties = {
 };
 
 const Header = ({ title }: { title: string }) => (
-    <div style={{ marginBottom: '2rem', borderBottom: '1px solid var(--panel-border)', paddingBottom: '1rem' }}>
-        <h1 style={{ color: 'var(--primary)', marginBottom: '0.5rem', fontSize: '2rem' }}>{title}</h1>
-        <a href="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>
-            ← Back to Chat
+    <div style={{ marginBottom: '2rem', borderBottom: '1px solid var(--panel-border)', paddingBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+        <div>
+            <h1 style={{ color: 'var(--primary)', marginBottom: '0.2rem', fontSize: '1.8rem' }}>{title}</h1>
+            <a href="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
+                ← Back to Home
+            </a>
+        </div>
+        <a href="/" style={{
+            background: 'var(--primary)',
+            color: '#000',
+            padding: '0.8rem 1.5rem',
+            borderRadius: '12px',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            boxShadow: '0 4px 15px rgba(74, 222, 128, 0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            fontSize: '1rem'
+        }}>
+            Open MalluChat Website →
         </a>
     </div>
 );
@@ -28,6 +46,30 @@ const Section = ({ title, children }: { title: string, children: React.ReactNode
 export const PrivacyPage = () => (
     <div style={containerStyle} className="glass">
         <Header title="Privacy Policy" />
+
+        {/* Website Opening Section */}
+        <div style={{
+            background: 'linear-gradient(135deg, rgba(74, 222, 128, 0.1) 0%, rgba(6, 95, 70, 0.2) 100%)',
+            padding: '2rem',
+            borderRadius: '16px',
+            marginBottom: '2rem',
+            textAlign: 'center',
+            border: '1px solid rgba(74, 222, 128, 0.2)'
+        }}>
+            <div style={{ marginBottom: '1rem' }}><MalluLogo size={60} /></div>
+            <h2 style={{ color: 'var(--primary)', marginBottom: '0.5rem' }}>Experience MalluChat Online</h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Join the fastest growing anonymous chat platform. No registration, no logs, just pure communication.</p>
+            <a href="/" style={{
+                background: 'var(--primary)',
+                color: '#000',
+                padding: '0.8rem 2rem',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                fontWeight: 'bold',
+                display: 'inline-block'
+            }}>Join the Chat Now</a>
+        </div>
+
         <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}><em>Effective Date: February 2026</em></p>
 
         <p style={{ marginBottom: '1.5rem', color: 'var(--text-muted)' }}>MalluChat.online operates a privacy-first, peer-to-peer communication model. This policy outlines our technical architecture and strict adherence to data minimization principles.</p>
@@ -66,6 +108,35 @@ export const PrivacyPage = () => (
 export const TermsPage = () => (
     <div style={containerStyle} className="glass">
         <Header title="Terms and Conditions" />
+
+        {/* Website Opening Section */}
+        <div style={{
+            background: 'linear-gradient(135deg, rgba(74, 222, 128, 0.1) 0%, rgba(6, 95, 70, 0.2) 100%)',
+            padding: '2.5rem 2rem',
+            borderRadius: '24px',
+            marginBottom: '3rem',
+            textAlign: 'center',
+            border: '1px solid rgba(74, 222, 128, 0.3)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
+        }}>
+            <div style={{ marginBottom: '1.5rem' }}><MalluLogo size={80} /></div>
+            <h2 style={{ color: 'var(--primary)', marginBottom: '0.8rem', fontSize: '2.2rem', fontWeight: '800' }}>Welcome to MalluChat</h2>
+            <p style={{ color: 'var(--text-main)', fontSize: '1.1rem', marginBottom: '2rem', maxWidth: '500px', margin: '0 auto 2rem' }}>The safest place for private Malayalee conversations. Click below to enter the platform directly.</p>
+            <a href="/" style={{
+                background: 'var(--primary)',
+                color: '#000',
+                padding: '1rem 3rem',
+                borderRadius: '16px',
+                textDecoration: 'none',
+                fontWeight: '900',
+                display: 'inline-block',
+                fontSize: '1.2rem',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                boxShadow: '0 4px 20px rgba(74, 222, 128, 0.4)'
+            }}>Enter Chat Room →</a>
+        </div>
+
         <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}><em>Effective Date: February 2026</em></p>
 
         <p style={{ marginBottom: '1.5rem', color: 'var(--text-muted)' }}>By accessing MalluChat.online, you expressly agree to these Terms and Conditions.</p>

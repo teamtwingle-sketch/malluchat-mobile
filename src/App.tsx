@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { MalluLogo } from './MalluLogo';
 import { PeerEngine } from './utils/peer-engine';
 import { isSpam, RateLimiter } from './utils/spam-filter';
 import { Send, Phone, Link as LinkIcon, Copy, Mic, CheckCheck, Volume2, MicOff, PhoneOff, X, Reply, Trash2, Video, VideoOff, Users, Lock, Plus, Download } from 'lucide-react';
@@ -10,19 +11,27 @@ import './index.css';
 const sentSound = new Audio('/sent.mp3');
 const receivedSound = new Audio('/received.mp3');
 
-export const MalluLogo = ({ size = 24 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))', display: 'inline-block' }}>
-    <circle cx="50" cy="50" r="50" fill="url(#paint_logo)" />
-    <path d="M25 42.5C25 32.835 32.835 25 42.5 25H57.5C67.165 25 75 32.835 75 42.5V57.5C75 67.165 67.165 75 57.5 75H40L25 85V65.8C25 65.8 25 65.8 25 42.5Z" fill="white" fillOpacity="0.15" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M37 42L49 54L61 42V60H65V35H61L50 47L39 35H35V60H39V42Z" fill="white" />
-    <defs>
-      <linearGradient id="paint_logo" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#4ade80" />
-        <stop offset="1" stopColor="#065f46" />
-      </linearGradient>
-    </defs>
-  </svg>
-);
+const GoogleAdMessage = () => {
+  useEffect(() => {
+    try {
+      (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+      (window as any).adsbygoogle.push({});
+    } catch (e) { }
+  }, []);
+
+  return (
+    <div className="google-ad-container" style={{ margin: '5px 0' }}>
+      <ins className="adsbygoogle"
+        style={{ display: 'block', minWidth: '200px', minHeight: '90px' }}
+        data-ad-client="ca-pub-8351044334296545"
+        data-ad-slot="8351044334"
+        data-ad-format="fluid"
+        data-ad-layout-key="-gw-3+1f-3d+2z"></ins>
+    </div>
+  );
+};
+
+
 
 
 export default function App() {
@@ -63,6 +72,7 @@ export default function App() {
   const [adLinkUrl, setAdLinkUrl] = useState('');
   const [adText, setAdText] = useState('');
   const [adSponsor, setAdSponsor] = useState('Sponsor');
+  const [adType, setAdType] = useState<'custom' | 'google'>('custom');
 
   // Detect if running inside Native App
   const isApp = typeof navigator !== 'undefined' && navigator.userAgent.includes('MalluChatApp');
@@ -285,7 +295,7 @@ export default function App() {
         id: uuidv4(),
         senderId: 'system-ad',
         senderName: 'Sponsor',
-        type: 'ad',
+        type: Math.random() > 0.5 ? 'ad' : 'google-ad',
         text: '<strong>Protect your privacy online with Surfshark VPN!</strong><br><a href="#" style="color: var(--primary); text-decoration: underline;">Get 80% off + 2 months free</a> anonymously with Crypto!',
         timestamp: Date.now()
       };
@@ -545,21 +555,15 @@ export default function App() {
   };
 
   const handleSendAd = () => {
-    if (!adText.trim()) return alert('Ad text is required');
-
-    // allow sending images via base64 or URL
-    let adContent = adText;
-    if (adLinkUrl) {
-      adContent = `<a href="${adLinkUrl}" target="_blank" style="color: var(--primary); text-decoration: underline;">${adText}</a>`;
-    }
+    if (adType === 'custom' && !adText.trim()) return alert('Ad text is required');
 
     const adMsg = {
       id: uuidv4(),
       senderId: 'system-ad',
       senderName: adSponsor || 'Sponsor',
-      type: 'ad',
-      text: adContent,
-      adImageUrl: adImageUrl || undefined,
+      type: adType === 'google' ? 'google-ad' : 'ad',
+      text: adType === 'google' ? '' : (adLinkUrl ? `<a href="${adLinkUrl}" target="_blank" style="color: var(--primary); text-decoration: underline;">${adText}</a>` : adText),
+      adImageUrl: adType === 'google' ? undefined : (adImageUrl || undefined),
       timestamp: Date.now()
     } as any;
 
@@ -793,56 +797,79 @@ export default function App() {
                 <X size={20} />
               </button>
               <h2 style={{ marginBottom: '0.5rem', color: 'var(--primary)' }}>Admin Control Panel</h2>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Send a sponsored broadcast ad directly into the chat stream.</p>
+              <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Send a sponsored broadcast ad or Google Ad directly into the chat stream.</p>
+
+              <div style={{ marginBottom: '1rem', display: 'flex', gap: '10px' }}>
+                <button
+                  className={`btn ${adType === 'custom' ? 'btn-primary' : 'btn-secondary'}`}
+                  style={{ flex: 1, margin: 0, padding: '0.5rem' }}
+                  onClick={() => setAdType('custom')}
+                >Custom</button>
+                <button
+                  className={`btn ${adType === 'google' ? 'btn-primary' : 'btn-secondary'}`}
+                  style={{ flex: 1, margin: 0, padding: '0.5rem' }}
+                  onClick={() => setAdType('google')}
+                >Google AdSense</button>
+              </div>
 
               <div style={{ marginBottom: '1rem' }}>
                 <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Sponsor Name</label>
                 <input className="input-field" value={adSponsor} onChange={e => setAdSponsor(e.target.value)} placeholder="e.g. System, Admin, Surfshark" />
               </div>
 
-              <div style={{ marginBottom: '1rem' }}>
-                <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Ad Text (HTML supported)</label>
-                <textarea className="input-field" value={adText} onChange={e => setAdText(e.target.value)} placeholder="Wait! Secure your internet connection..." style={{ minHeight: '80px', resize: 'vertical' }} />
-              </div>
+              {adType === 'custom' ? (
+                <>
+                  <div style={{ marginBottom: '1rem' }}>
+                    <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Ad Text (HTML supported)</label>
+                    <textarea className="input-field" value={adText} onChange={e => setAdText(e.target.value)} placeholder="Wait! Secure your internet connection..." style={{ minHeight: '80px', resize: 'vertical' }} />
+                  </div>
 
-              <div style={{ marginBottom: '1rem' }}>
-                <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Hyperlink URL</label>
-                <input className="input-field" value={adLinkUrl} onChange={e => setAdLinkUrl(e.target.value)} placeholder="https://..." />
-              </div>
+                  <div style={{ marginBottom: '1rem' }}>
+                    <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Hyperlink URL</label>
+                    <input className="input-field" value={adLinkUrl} onChange={e => setAdLinkUrl(e.target.value)} placeholder="https://..." />
+                  </div>
 
-              <div style={{ marginBottom: '1rem' }}>
-                <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Image URL (Optional)</label>
-                <div style={{ display: 'flex', gap: '5px' }}>
-                  <input className="input-field" value={adImageUrl} onChange={e => setAdImageUrl(e.target.value)} placeholder="https://..." />
-                  <label className="icon-btn" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, padding: '0 10px', background: 'rgba(255,255,255,0.1)' }}>
-                    Upload
-                    <input type="file" style={{ display: 'none' }} accept="image/*" onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        setAdImageUrl('Uploading...');
-                        const form = new FormData();
-                        form.append('file', file);
-                        fetch('https://tmpfiles.org/api/v1/upload', {
-                          method: 'POST',
-                          body: form
-                        })
-                          .then(res => res.json())
-                          .then(data => {
-                            const directUrl = data.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
-                            setAdImageUrl(directUrl);
-                          })
-                          .catch(() => {
-                            alert('Failed to upload ad image.');
-                            setAdImageUrl('');
-                          });
-                      }
-                    }} />
-                  </label>
+                  <div style={{ marginBottom: '1rem' }}>
+                    <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Image URL (Optional)</label>
+                    <div style={{ display: 'flex', gap: '5px' }}>
+                      <input className="input-field" value={adImageUrl} onChange={e => setAdImageUrl(e.target.value)} placeholder="https://..." />
+                      <label className="icon-btn" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, padding: '0 10px', background: 'rgba(255,255,255,0.1)' }}>
+                        Upload
+                        <input type="file" style={{ display: 'none' }} accept="image/*" onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setAdImageUrl('Uploading...');
+                            const form = new FormData();
+                            form.append('file', file);
+                            fetch('https://tmpfiles.org/api/v1/upload', {
+                              method: 'POST',
+                              body: form
+                            })
+                              .then(res => res.json())
+                              .then(data => {
+                                const directUrl = data.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
+                                setAdImageUrl(directUrl);
+                              })
+                              .catch(() => {
+                                alert('Failed to upload ad image.');
+                                setAdImageUrl('');
+                              });
+                          }
+                        }} />
+                      </label>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div style={{ marginBottom: '1rem', padding: '15px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', border: '1px solid var(--panel-border)' }}>
+                  <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                    Google AdSense will be injected as a native-looking message. Make sure your AdSense account is active for <strong>ca-pub-8351044334296545</strong>.
+                  </p>
                 </div>
-              </div>
+              )}
 
               <button className="btn btn-primary" style={{ width: '100%' }} onClick={handleSendAd}>
-                Broadcast Ad to General Chat
+                Broadcast {adType === 'google' ? 'Google Ad' : 'Ad'} to General Chat
               </button>
             </div>
           </div>
@@ -1079,6 +1106,16 @@ export default function App() {
                             <img src={msg.adImageUrl} alt="Sponsored" style={{ width: '100%', borderRadius: '8px', marginBottom: '8px', objectFit: 'cover' }} />
                           )}
                           <div dangerouslySetInnerHTML={{ __html: msg.text || '' }} style={{ fontSize: '0.95rem' }} />
+                        </div>
+                      )}
+
+                      {msg.type === 'google-ad' && (
+                        <div style={{ display: 'flex', flexDirection: 'column', minWidth: 'min(300px, 70vw)' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '4px' }}>
+                            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>Sponsored</span>
+                            <span style={{ fontSize: '0.7rem', background: 'rgba(255,255,255,0.1)', padding: '2px 6px', borderRadius: '4px' }}>Google Ad</span>
+                          </div>
+                          <GoogleAdMessage />
                         </div>
                       )}
 

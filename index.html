@@ -37,10 +37,10 @@
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8351044334296545"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 
   <style>
-    /* App-like Loading Animation */
+    /* Premium Loading Screen */
     #root-loader {
       display: flex;
       flex-direction: column;
@@ -48,32 +48,67 @@
       align-items: center;
       height: 100vh;
       width: 100vw;
-      background-color: #0f1115;
+      background: radial-gradient(circle at center, #1a1d23 0%, #0f1115 100%);
       color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    .loader-spinner {
-      width: 48px;
-      height: 48px;
-      border: 4px solid rgba(74, 222, 128, 0.2);
-      border-radius: 50%;
-      border-top-color: #4ade80;
-      animation: spin 1s ease-in-out infinite;
-      margin-bottom: 20px;
+    .loader-brand {
+      position: relative;
+      margin-bottom: 2rem;
+      animation: pulse-logo 2s ease-in-out infinite;
     }
 
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
+    @keyframes pulse-logo {
+
+      0%,
+      100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.2));
+      }
+
+      50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 25px rgba(74, 222, 128, 0.5));
       }
     }
 
     .loader-text {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #ebf0f5;
-      letter-spacing: 1px;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(to right, #4ade80, #065f46);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .loader-bar {
+      width: 150px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      margin-top: 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .loader-bar::after {
+      content: '';
+      position: absolute;
+      left: -100%;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, #4ade80, transparent);
+      animation: loading-bar 1.5s infinite;
+    }
+
+    @keyframes loading-bar {
+      100% {
+        left: 100%;
+      }
     }
   </style>
 </head>
@@ -81,8 +116,25 @@
 <body>
   <div id="root">
     <div id="root-loader">
-      <div class="loader-spinner"></div>
+      <div class="loader-brand">
+        <!-- SVG Logo Placeholder (Small version) -->
+        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="50" fill="url(#paint_logo_loader)" />
+          <path
+            d="M25 42.5C25 32.835 32.835 25 42.5 25H57.5C67.165 25 75 32.835 75 42.5V57.5C75 67.165 67.165 75 57.5 75H40L25 85V65.8C25 65.8 25 65.8 25 42.5Z"
+            fill="white" fillOpacity="0.15" stroke="white" strokeWidth="2" strokeLinecap="round"
+            strokeLinejoin="round" />
+          <path d="M37 42L49 54L61 42V60H65V35H61L50 47L39 35H35V60H39V42Z" fill="white" />
+          <defs>
+            <linearGradient id="paint_logo_loader" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#4ade80" />
+              <stop offset="1" stopColor="#065f46" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
       <div class="loader-text">MalluChat</div>
+      <div class="loader-bar"></div>
     </div>
   </div>
   <script type="module" src="/src/main.tsx"></script>
