@@ -295,8 +295,15 @@ export default function App() {
         id: uuidv4(),
         senderId: 'system-ad',
         senderName: 'Sponsor',
-        type: Math.random() > 0.5 ? 'ad' : 'google-ad',
-        text: '<strong>Protect your privacy online with Surfshark VPN!</strong><br><a href="#" style="color: var(--primary); text-decoration: underline;">Get 80% off + 2 months free</a> anonymously with Crypto!',
+        type: 'ad',
+        text: `<div style="background: rgba(0,0,0,0.3); border: 1px solid var(--panel-border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: inherit; margin-top: 5px;">
+          <img src="https://twingle.online/og-image.jpg" alt="Twingle Preview" style="width: 100%; height: 140px; object-fit: cover; border-bottom: 1px solid var(--panel-border);" />
+          <div style="padding: 12px;">
+            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; color: var(--text-main);">Twingle | No. 1 Mallu Dating App</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.3; margin-bottom: 12px;">Find love, marriage, and friendship in Kerala. Secure dating for Mallus with verified profiles, free chat, and calling options.</div>
+            <a href="https://twingle.online" target="_blank" style="display: block; text-align: center; background: var(--primary); color: #000; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; text-decoration: none; transition: all 0.2s;">Visit twingle.online</a>
+          </div>
+        </div>`,
         timestamp: Date.now()
       };
       setPublicMessages(prev => [...prev, adMsg]);
@@ -1282,9 +1289,13 @@ export default function App() {
 
           <div style={{ marginTop: '2rem', padding: '1rem', background: 'rgba(74, 222, 128, 0.05)', borderRadius: '12px', border: '1px dashed var(--primary)' }}>
             <h4 style={{ color: 'var(--primary)', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Sponsored</h4>
-            <div style={{ fontSize: '0.85rem', lineHeight: '1.5' }}>
-              <strong>Protect your privacy online with Surfshark VPN!</strong><br />
-              <a href="#" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Get 80% off + 2 months free</a> anonymously with Crypto!
+            <div style={{ fontSize: '0.85rem', lineHeight: '1.5', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ width: '100%', height: '100px', borderRadius: '8px', overflow: 'hidden', marginBottom: '4px' }}>
+                <img src="https://twingle.online/og-image.jpg" alt="Twingle" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <strong style={{ color: 'var(--text-main)' }}>Twingle | No. 1 Mallu Dating App</strong>
+              <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Find love, marriage, and friendship in Kerala. Secure dating with verified profiles.</span>
+              <a href="https://twingle.online" target="_blank" style={{ color: '#000', background: 'var(--primary)', padding: '8px', borderRadius: '8px', textAlign: 'center', fontWeight: 'bold', textDecoration: 'none', marginTop: '4px' }}>Visit twingle.online</a>
             </div>
           </div>
 
