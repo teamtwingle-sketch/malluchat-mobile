@@ -12,22 +12,16 @@ const sentSound = new Audio('/sent.mp3');
 const receivedSound = new Audio('/received.mp3');
 
 const GoogleAdMessage = () => {
-  useEffect(() => {
-    try {
-      (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-      (window as any).adsbygoogle.push({});
-    } catch (e) { }
-  }, []);
-
   return (
-    <div className="google-ad-container" style={{ margin: '5px 0' }}>
-      <ins className="adsbygoogle"
-        style={{ display: 'block', minWidth: '200px', minHeight: '90px' }}
-        data-ad-client="ca-pub-8351044334296545"
-        data-ad-slot="8351044334"
-        data-ad-format="fluid"
-        data-ad-layout-key="-gw-3+1f-3d+2z"></ins>
-    </div>
+    <a href="https://twingle.online" target="_blank" className="google-ad-container" style={{ margin: '5px 0', display: 'block', textDecoration: 'none', background: 'white', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--panel-border)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', padding: '10px', gap: '15px' }}>
+        <img src="https://twingle.online/twingle-logo.png" alt="Twingle" style={{ height: '40px', width: '40px', objectFit: 'contain' }} />
+        <div>
+          <div style={{ fontWeight: 'bold', color: '#000', fontSize: '1rem' }}>FREE MALLU DATING APP</div>
+          <div style={{ color: '#666', fontSize: '0.8rem' }}>Twingle | Find your match in Kerala</div>
+        </div>
+      </div>
+    </a>
   );
 };
 
@@ -301,7 +295,7 @@ export default function App() {
             <img src="https://twingle.online/twingle-logo.png" alt="Twingle Logo" style="height: 60px; object-fit: contain;" />
           </div>
           <div style="padding: 12px;">
-            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; color: var(--text-main);">Twingle | No. 1 Mallu Dating App</div>
+            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; color: var(--text-main);">FREE MALLU DATING APP</div>
             <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.3; margin-bottom: 12px;">Find love, marriage, and friendship in Kerala. Secure dating for Mallus with verified profiles, free chat, and calling options.</div>
             <a href="https://twingle.online" target="_blank" style="display: block; text-align: center; background: var(--primary); color: #000; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; text-decoration: none; transition: all 0.2s;">Visit twingle.online</a>
           </div>
@@ -1295,7 +1289,7 @@ export default function App() {
               <div style={{ width: '100%', height: '100px', borderRadius: '8px', overflow: 'hidden', marginBottom: '4px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <img src="https://twingle.online/twingle-logo.png" alt="Twingle" style={{ height: '50px', objectFit: 'contain' }} />
               </div>
-              <strong style={{ color: 'var(--text-main)' }}>Twingle | No. 1 Mallu Dating App</strong>
+              <strong style={{ color: 'var(--text-main)' }}>FREE MALLU DATING APP</strong>
               <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Find love, marriage, and friendship in Kerala. Secure dating with verified profiles.</span>
               <a href="https://twingle.online" target="_blank" style={{ color: '#000', background: 'var(--primary)', padding: '8px', borderRadius: '8px', textAlign: 'center', fontWeight: 'bold', textDecoration: 'none', marginTop: '4px' }}>Visit twingle.online</a>
             </div>
