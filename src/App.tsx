@@ -68,10 +68,10 @@ export default function App() {
   const [adminEmail, setAdminEmail] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
   const [isAdminAuth, setIsAdminAuth] = useState(false);
-  const [adImageUrl, setAdImageUrl] = useState('');
-  const [adLinkUrl, setAdLinkUrl] = useState('');
-  const [adText, setAdText] = useState('');
-  const [adSponsor, setAdSponsor] = useState('Sponsor');
+  const [adImageUrl, setAdImageUrl] = useState('https://twingle.online/twingle-logo.png');
+  const [adLinkUrl, setAdLinkUrl] = useState('https://twingle.online');
+  const [adText, setAdText] = useState('<strong>Twingle | No. 1 Mallu Dating App</strong><br>Find love, marriage, and friendship in Kerala.');
+  const [adSponsor, setAdSponsor] = useState('Twingle');
   const [adType, setAdType] = useState<'custom' | 'google'>('custom');
 
   // Detect if running inside Native App
@@ -297,7 +297,9 @@ export default function App() {
         senderName: 'Sponsor',
         type: 'ad',
         text: `<div style="background: rgba(0,0,0,0.3); border: 1px solid var(--panel-border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: inherit; margin-top: 5px;">
-          <img src="https://twingle.online/og-image.jpg" alt="Twingle Preview" style="width: 100%; height: 140px; object-fit: cover; border-bottom: 1px solid var(--panel-border);" />
+          <div style="background: white; padding: 20px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid var(--panel-border);">
+            <img src="https://twingle.online/twingle-logo.png" alt="Twingle Logo" style="height: 60px; object-fit: contain;" />
+          </div>
           <div style="padding: 12px;">
             <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; color: var(--text-main);">Twingle | No. 1 Mallu Dating App</div>
             <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.3; margin-bottom: 12px;">Find love, marriage, and friendship in Kerala. Secure dating for Mallus with verified profiles, free chat, and calling options.</div>
@@ -821,14 +823,14 @@ export default function App() {
 
               <div style={{ marginBottom: '1rem' }}>
                 <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Sponsor Name</label>
-                <input className="input-field" value={adSponsor} onChange={e => setAdSponsor(e.target.value)} placeholder="e.g. System, Admin, Surfshark" />
+                <input className="input-field" value={adSponsor} onChange={e => setAdSponsor(e.target.value)} placeholder="e.g. System, Admin, Twingle" />
               </div>
 
               {adType === 'custom' ? (
                 <>
                   <div style={{ marginBottom: '1rem' }}>
                     <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Ad Text (HTML supported)</label>
-                    <textarea className="input-field" value={adText} onChange={e => setAdText(e.target.value)} placeholder="Wait! Secure your internet connection..." style={{ minHeight: '80px', resize: 'vertical' }} />
+                    <textarea className="input-field" value={adText} onChange={e => setAdText(e.target.value)} placeholder="Twingle | No. 1 Mallu Dating App..." style={{ minHeight: '80px', resize: 'vertical' }} />
                   </div>
 
                   <div style={{ marginBottom: '1rem' }}>
@@ -1290,8 +1292,8 @@ export default function App() {
           <div style={{ marginTop: '2rem', padding: '1rem', background: 'rgba(74, 222, 128, 0.05)', borderRadius: '12px', border: '1px dashed var(--primary)' }}>
             <h4 style={{ color: 'var(--primary)', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Sponsored</h4>
             <div style={{ fontSize: '0.85rem', lineHeight: '1.5', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <div style={{ width: '100%', height: '100px', borderRadius: '8px', overflow: 'hidden', marginBottom: '4px' }}>
-                <img src="https://twingle.online/og-image.jpg" alt="Twingle" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ width: '100%', height: '100px', borderRadius: '8px', overflow: 'hidden', marginBottom: '4px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img src="https://twingle.online/twingle-logo.png" alt="Twingle" style={{ height: '50px', objectFit: 'contain' }} />
               </div>
               <strong style={{ color: 'var(--text-main)' }}>Twingle | No. 1 Mallu Dating App</strong>
               <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Find love, marriage, and friendship in Kerala. Secure dating with verified profiles.</span>
